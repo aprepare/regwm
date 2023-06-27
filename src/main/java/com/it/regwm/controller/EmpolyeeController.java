@@ -81,4 +81,13 @@ public class EmpolyeeController {
         empolyService.page(pageInfo,lambdaQueryWrapper);
         return R.success(pageInfo);
     }
+    @PutMapping
+    public R<String> update(HttpServletRequest request,@RequestBody Employee employee){
+        Long empId = (Long) request.getSession().getAttribute("employee");
+        employee.setUpdateTime(LocalDateTime.now());
+        employee.setUpdateUser(empId);
+        empolyService.updateById(employee);
+        return R.success("员工信息更新成功");
+    }
+
 }
