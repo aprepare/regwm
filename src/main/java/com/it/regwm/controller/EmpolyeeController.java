@@ -62,13 +62,13 @@ public class EmpolyeeController {
     @PostMapping
     public R<String> save(HttpServletRequest request,@RequestBody Employee employee){
         log.info("新增员工，员工信息：{}",employee.toString());
-        employee.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes()));
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
+        //employee.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes()));
+        //employee.setCreateTime(LocalDateTime.now());
+        //employee.setUpdateTime(LocalDateTime.now());
 
-        Long empId = (Long) request.getSession().getAttribute("employee");
-        employee.setCreateUser(empId);
-        employee.setUpdateUser(empId);
+        //Long empId = (Long) request.getSession().getAttribute("employee");
+       // employee.setCreateUser(empId);
+        //employee.setUpdateUser(empId);
         empolyService.save(employee);
 
         return R.success("新增员工成功");
@@ -85,8 +85,8 @@ public class EmpolyeeController {
     @PutMapping
     public R<String> update(HttpServletRequest request,@RequestBody Employee employee){
         Long empId = (Long) request.getSession().getAttribute("employee");
-        employee.setUpdateTime(LocalDateTime.now());
-        employee.setUpdateUser(empId);
+        //employee.setUpdateTime(LocalDateTime.now());
+       // employee.setUpdateUser(empId);
         empolyService.updateById(employee);
         return R.success("员工信息更新成功");
     }
