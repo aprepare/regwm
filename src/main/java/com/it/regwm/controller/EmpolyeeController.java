@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PreDestroy;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.invoke.LambdaConversionException;
 import java.time.LocalDateTime;
@@ -89,5 +90,14 @@ public class EmpolyeeController {
         empolyService.updateById(employee);
         return R.success("员工信息更新成功");
     }
+    @GetMapping("/{id}")
+    public R<Employee> add(@PathVariable long id){
+        log.info("要修改的id",id);
+        Employee employee = empolyService.getById(id);
+        if (employee!=null){
+            return R.success(employee);
+        }
 
+        return R.error("没有查询到此用户信息");
+    }
 }
