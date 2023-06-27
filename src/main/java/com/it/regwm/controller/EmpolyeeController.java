@@ -2,16 +2,15 @@ package com.it.regwm.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.it.regwm.common.R;
 import com.it.regwm.entity.Employee;
 import com.it.regwm.service.EmpolyService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.invoke.LambdaConversionException;
@@ -72,5 +71,14 @@ public class EmpolyeeController {
         empolyService.save(employee);
 
         return R.success("新增员工成功");
+    }
+    @GetMapping("/page")
+    public R<Page> page(int page,int pageSize,String name){
+        Page pageInfo =new Page(page,pageSize);
+        LambdaQueryWrapper<Employee> lambdaQueryWrapper=new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.like(StringUtils.isNotEmpty(name),Employee::getName,name);
+        lambdaQueryWrapper.orderByDesc(Employee::getUpdateTime);
+        empolyService.page(pageInfo,lambdaQueryWrapper);
+        return R.success(pageInfo);
     }
 }
