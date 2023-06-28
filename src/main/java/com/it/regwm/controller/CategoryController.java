@@ -31,9 +31,13 @@ public class CategoryController {
         lambdaQueryWrapper.orderByDesc(Category::getSort);
         //进行分页查询
         categoryService.page(pageInfo,lambdaQueryWrapper);
-
         return R.success(pageInfo);
+    }
+    @DeleteMapping
+    public R<String> delete(Long ids){
+          log.info("删除分类，id为：{}",ids);
+          categoryService.removeById(ids);
 
-
+          return R.success("删除成功");
     }
 }

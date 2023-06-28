@@ -13,10 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PreDestroy;
+
 import javax.servlet.http.HttpServletRequest;
-import java.lang.invoke.LambdaConversionException;
-import java.time.LocalDateTime;
+
 
 @Slf4j
 @RestController
@@ -85,7 +84,7 @@ public class EmpolyeeController {
     }
     @PutMapping
     public R<String> update(HttpServletRequest request,@RequestBody Employee employee){
-        Long empId = (Long) request.getSession().getAttribute("employee");
+        //Long empId = (Long) request.getSession().getAttribute("employee");
         //employee.setUpdateTime(LocalDateTime.now());
        // employee.setUpdateUser(empId);
         empolyService.updateById(employee);
