@@ -1,0 +1,10 @@
+package com.it.regwm.service;
+
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.it.regwm.entity.Setmeal;
+
+
+public interface SetmealService extends IService<Setmeal> {
+
+}
